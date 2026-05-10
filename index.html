@@ -791,5 +791,36 @@ function collectData() {
   };
 }
 </script>
+<script>
+const scriptURL = "PASTE_YOUR_WEB_APP_URL";
+
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  alert("Submitting..."); // visual feedback
+
+  try {
+    const res = await fetch(scriptURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        submitted: new Date().toISOString(),
+        respondent: {
+          name: "Test User",
+          phone: "0700000000"
+        }
+      })
+    });
+
+    const data = await res.json();
+    alert("Submitted! Check your Google Sheet.");
+
+  } catch (err) {
+    console.error(err);
+    alert("Error submitting");
+  }
+});
+</script>
+  
 </body>
 </html>
